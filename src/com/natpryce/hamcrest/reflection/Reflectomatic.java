@@ -25,6 +25,12 @@ public class Reflectomatic {
         }
     };
     
+    public static FeatureType<Class<?>> CLASSES = new FeatureType<Class<?>>() {
+        public Class<?>[] featuresOf(Class<?> fromClass) {
+            return fromClass.getDeclaredClasses();
+        }
+    };
+    
     private static <T> List<T> all(Class<?> type, FeatureType<T> featureType, Matcher<? super T> criteria) {
         List<T> matchingFeatures = new ArrayList<T>();
         
@@ -55,5 +61,9 @@ public class Reflectomatic {
         List<Constructor<?>> matchingConstructors = new ArrayList<Constructor<?>>();
         collectMatchingFeatures(type.getDeclaredConstructors(), criteria, matchingConstructors);
         return matchingConstructors;
+    }
+    
+    public static List<Class<?>> classesIn(Class<?> type, Matcher<? super Class<?>> criteria) {
+        return all(type, CLASSES, criteria);
     }
 }

@@ -21,7 +21,19 @@ public class HasAnnotationMatcher<T extends Annotation> extends TypeSafeDiagnosi
     @Override
     protected boolean matchesSafely(AnnotatedElement item, Description mismatchDescription) {
         T annotation = item.getAnnotation(annotationType);
-        return annotation != null && annotationMatcher.matches(annotation);
+        if (annotation == null) {
+            mismatchDescription
+                .appendText("does not have annotation ")
+                .appendText(annotationType.getName());
+            return false;
+        }
+        
+        if (!annotationMatcher.matches(annotation)) {
+            annotationMatcher.describeMismatch(annotation, mismatchDescription);
+            return false;
+        }
+        
+        return true;
     }
 
     public void describeTo(Description description) {
