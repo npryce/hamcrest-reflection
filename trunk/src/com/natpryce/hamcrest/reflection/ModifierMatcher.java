@@ -37,4 +37,29 @@ public class ModifierMatcher extends TypeSafeDiagnosingMatcher<Member> {
     public static ModifierMatcher withModifiers(int modifiers) {
         return new ModifierMatcher(modifiers);
     }
+    
+    @Factory
+    public static ModifierMatcher isPublic() {
+        return new ModifierMatcher(Modifier.PUBLIC);
+    }
+
+    @Factory
+    public static ModifierMatcher isAbstract() {
+        return new ModifierMatcher(Modifier.ABSTRACT);
+    }
+
+    @Factory
+    public static ModifierMatcher isStatic() {
+        return new ModifierMatcher(Modifier.STATIC);
+    }
+
+    @Factory
+    public static ModifierMatcher isFinal() {
+        return new ModifierMatcher(Modifier.FINAL);
+    }
+    
+    @Factory
+    public static ModifierMatcher isTransient() {
+        return new ModifierMatcher(Modifier.TRANSIENT);
+    }
 }

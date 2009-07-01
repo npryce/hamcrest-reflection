@@ -7,11 +7,14 @@ import static com.natpryce.hamcrest.reflection.Reflectomatic.fieldsOf;
 import static com.natpryce.hamcrest.reflection.Reflectomatic.methodsOf;
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+
+import com.natpryce.hamcrest.reflection.Reflectomatic;
 
 public class ReflectomaticTests {
     public static class BaseClass {
@@ -19,6 +22,9 @@ public class ReflectomaticTests {
         
         public void m1() {}
         public void n1() {}
+        
+        public class InnnerClassInBaseClass{}
+        static class StaticInnerclassInBaseClass{} 
     }
     
     public static class DerivedClass extends BaseClass {
@@ -29,6 +35,9 @@ public class ReflectomaticTests {
         
         public DerivedClass() {}
         protected DerivedClass(int n) {anotherField = n;}
+        
+        public class InnnerClassInDerivedClass{}
+        static class StaticInnerclassInDerivedClass{} 
     }
     
     @Test
@@ -39,12 +48,23 @@ public class ReflectomaticTests {
     }
 
     @Test
-    public void listsMatchingMethodsReverseInheritanceOrder() throws Exception {
+    public void listsMatchingMethodsInReverseInheritanceOrder() throws Exception {
         assertThat(
                 methodsOf(DerivedClass.class, withName(startsWith("m"))), 
                 equalTo(asList(DerivedClass.class.getDeclaredMethod("m2"), BaseClass.class.getDeclaredMethod("m1"))));
     }
-    
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void listsMatchingNestedClassesInReverseInheritanceOrder() throws Exception {
+        assertThat(
+                Reflectomatic.classesIn(DerivedClass.class, anything()), 
+                equalTo(asList(DerivedClass.InnnerClassInDerivedClass.class, 
+                               DerivedClass.StaticInnerclassInDerivedClass.class,
+                               BaseClass.InnnerClassInBaseClass.class,
+                               BaseClass.StaticInnerclassInBaseClass.class)));
+    }
+
     @Test
     public void listsMatchingConstructors() throws Exception {
         assertThat(constructorsOf(DerivedClass.class, withModifiers(PUBLIC)),
