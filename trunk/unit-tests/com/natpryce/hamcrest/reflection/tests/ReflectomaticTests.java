@@ -70,4 +70,18 @@ public class ReflectomaticTests {
         assertThat(constructorsOf(DerivedClass.class, withModifiers(PUBLIC)),
                 equalTo(asList(DerivedClass.class.getConstructors())));
     }
+    
+    @Test
+    public void canCopyFieldsBetweenObjects() {
+    	DerivedClass from = new DerivedClass();
+    	from.fieldA = 10;
+    	from.fieldB = 20;
+    	from.anotherField = 30;
+    	
+    	BaseClass to = new BaseClass();
+    	to.fieldA = 9999;
+    	
+    	Reflectomatic.copyFieldsFromTo(from, to);
+    	assertThat(to.fieldA, equalTo(from.fieldA));
+    }
 }

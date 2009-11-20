@@ -1,5 +1,10 @@
 package com.natpryce.hamcrest.reflection;
 
+import static com.natpryce.hamcrest.reflection.ModifierMatcher.withModifiers;
+import static java.lang.reflect.Modifier.FINAL;
+import static java.lang.reflect.Modifier.STATIC;
+import static org.hamcrest.Matchers.not;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -66,4 +71,15 @@ public class Reflectomatic {
     public static List<Class<?>> classesIn(Class<?> type, Matcher<? super Class<?>> criteria) {
         return all(type, CLASSES, criteria);
     }
+
+	public static void copyFieldsFromTo(Object from, Object to) {
+		for (Field field : fieldsOf(to.getClass(), not(withModifiers(FINAL|STATIC)))) {
+			try {
+				field.setAccessible(true);
+				field.set(to, field.get(from));
+			} catch (IllegalAccessException e) {
+				throw new IllegalStateException("cannot access field that has been made accessible", e);
+			}
+		}
+	}
 }
