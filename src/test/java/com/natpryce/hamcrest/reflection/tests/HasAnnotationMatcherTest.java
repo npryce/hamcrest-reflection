@@ -14,7 +14,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
-public class HasAnnotationMatcherTests {
+public class HasAnnotationMatcherTest {
     @Retention(RUNTIME)
     public static @interface AnnotationWithArgument {
         int value();
