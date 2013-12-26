@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.natpryce.hamcrest.reflection.Reflectomatic;
@@ -55,6 +56,7 @@ public class ReflectomaticTests {
     }
 
     @Test
+	@Ignore("False assumption, test might fail sporadically. See issue 1 (https://code.google.com/p/hamcrest-reflection/issues/detail?id=1).")
     public void listsMatchingNestedClassesInReverseInheritanceOrder() throws Exception {
         assertThat(
                 Reflectomatic.classesIn(DerivedClass.class, anything()), 
