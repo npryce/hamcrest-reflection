@@ -55,7 +55,6 @@ public class ReflectomaticTests {
     }
 
     @Test
-    @SuppressWarnings("unchecked")
     public void listsMatchingNestedClassesInReverseInheritanceOrder() throws Exception {
         assertThat(
                 Reflectomatic.classesIn(DerivedClass.class, anything()), 
