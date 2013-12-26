@@ -22,6 +22,7 @@ public class HasAnnotationMatcherTests {
     
     public static @interface UnusedAnnotation {}
     
+    @AnnotationWithArgument(2)
     public static class Annotated {
         @Deprecated
         @AnnotationWithArgument(1)
@@ -29,6 +30,13 @@ public class HasAnnotationMatcherTests {
         }
     }
     
+	@Test
+	public void matchesAnnotatedClasses() throws Exception {
+		final Class<?> clas = Annotated.class;
+
+		assertThat(clas, hasAnnotation(AnnotationWithArgument.class));
+	}
+
     @Test
     public void matchesAnnotatedMembers() throws Exception {
         Method method = Annotated.class.getMethod("annotatedMethod");
