@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.natpryce.hamcrest</groupId>
 	<artifactId>hamcrest-reflection</artifactId>
-	<version>0.1-1</version>
+	<version>0.1-2</version>
 	<name>hamcrest-reflection</name>
 	<description>API for simplifying reflection with Hamcrest matchers.</description>
 	<url>http://code.google.com/p/hamcrest-reflection/</url>
@@ -26,6 +26,19 @@
 		<developerConnection>scm:svn:https://hamcrest-reflection.googlecode.com/svn/trunk</developerConnection>
 	</scm>
 	<developers>
+		<developer>
+			<email>markus@headcrashing.eu</email>
+			<url>http://www.headcrashing.eu</url>
+			<organization>Head Crashing Informatics</organization>
+			<organizationUrl>http://www.headcrashing.eu</organizationUrl>
+			<roles>
+				<role>Owner</role>
+			</roles>
+			<timezone>1</timezone>
+			<properties>
+				<picUrl>http://weblogs.java.net/images/people/markus_karg.jpg</picUrl>
+			</properties>
+		</developer>
 		<developer>
 			<id>nat.pryce</id>
 			<email>nat.pryce@gmail.com</email>
@@ -44,22 +57,6 @@
 			</roles>
 		</developer>
 	</developers>
-	<contributors>
-		<contributor>
-			<email>markus@headcrashing.eu</email>
-			<url>http://www.headcrashing.eu</url>
-			<organization>Head Crashing Informatics</organization>
-			<organizationUrl>http://www.headcrashing.eu</organizationUrl>
-			<roles>
-				<role>Mavenizer</role>
-				<role>MavenCentralDeployer</role>
-			</roles>
-			<timezone>1</timezone>
-			<properties>
-				<picUrl>http://weblogs.java.net/images/people/markus_karg.jpg</picUrl>
-			</properties>
-		</contributor>
-	</contributors>
 	<properties>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<maven.compiler.source>1.7</maven.compiler.source>
