@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import com.natpryce.hamcrest.reflection.Reflectomatic;
 
-public class ReflectomaticTests {
+public class ReflectomaticTest {
     public static class BaseClass {
         int fieldA = 10;
         
