@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.natpryce.hamcrest</groupId>
 	<artifactId>hamcrest-reflection</artifactId>
-	<version>0.1-2</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>hamcrest-reflection</name>
 	<description>API for simplifying reflection with Hamcrest matchers.</description>
 	<url>http://code.google.com/p/hamcrest-reflection/</url>
