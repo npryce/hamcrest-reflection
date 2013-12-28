@@ -59,6 +59,7 @@ abstract class ItemsBeforeMatcher<T> extends TypeSafeMatcher<List<T>> {
 		return i;
 	}
 
+	@Override
 	public final void describeTo(final Description description) {
 		description.appendValueList("has items [", ", ", "]", this.leadingItems).appendValueList(" before items [", ", ", "]", this.trailingItems);
 	}

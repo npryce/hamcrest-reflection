@@ -44,8 +44,8 @@ public class ReflectomaticTest {
 		public DerivedClass() {
 		}
 
-		protected DerivedClass(int n) {
-			anotherField = n;
+		protected DerivedClass(final int n) {
+			this.anotherField = n;
 		}
 
 		public class InnnerClassInDerivedClass {
@@ -82,12 +82,12 @@ public class ReflectomaticTest {
 
 	@Test
 	public void canCopyFieldsBetweenObjects() {
-		DerivedClass from = new DerivedClass();
+		final DerivedClass from = new DerivedClass();
 		from.fieldA = 10;
 		from.fieldB = 20;
 		from.anotherField = 30;
 
-		BaseClass to = new BaseClass();
+		final BaseClass to = new BaseClass();
 		to.fieldA = 9999;
 
 		Reflectomatic.copyFieldsFromTo(from, to);

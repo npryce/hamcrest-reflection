@@ -13,23 +13,24 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 public class MemberNameMatcher extends TypeSafeDiagnosingMatcher<Member> {
 	private final Matcher<String> nameMatcher;
 
-	public MemberNameMatcher(Matcher<String> nameMatcher) {
+	public MemberNameMatcher(final Matcher<String> nameMatcher) {
 		this.nameMatcher = nameMatcher;
 	}
 
 	@Override
-	protected boolean matchesSafely(Member item, Description mismatchDescription) {
-		String name = item.getName();
-		if (nameMatcher.matches(name)) {
+	protected boolean matchesSafely(final Member item, final Description mismatchDescription) {
+		final String name = item.getName();
+		if (this.nameMatcher.matches(name))
 			return true;
-		} else {
+		else {
 			mismatchDescription.appendText("name was ").appendValue(name);
 			return false;
 		}
 	}
 
-	public void describeTo(Description description) {
-		description.appendText("with name").appendDescriptionOf(nameMatcher);
+	@Override
+	public void describeTo(final Description description) {
+		description.appendText("with name").appendDescriptionOf(this.nameMatcher);
 	}
 
 	@Factory

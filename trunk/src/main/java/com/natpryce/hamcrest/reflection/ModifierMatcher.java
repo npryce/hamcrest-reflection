@@ -10,30 +10,31 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 public class ModifierMatcher extends TypeSafeDiagnosingMatcher<Member> {
 	private final int modifiers;
 
-	public ModifierMatcher(int modifiers) {
+	public ModifierMatcher(final int modifiers) {
 		this.modifiers = modifiers;
 	}
 
 	@Override
-	protected boolean matchesSafely(Member item, Description mismatchDescription) {
-		if (allModifiersAreSetOn(item)) {
+	protected boolean matchesSafely(final Member item, final Description mismatchDescription) {
+		if (this.allModifiersAreSetOn(item))
 			return true;
-		} else {
+		else {
 			mismatchDescription.appendText("was ").appendText(Modifier.toString(item.getModifiers()));
 			return false;
 		}
 	}
 
-	private boolean allModifiersAreSetOn(Member item) {
-		return (item.getModifiers() & modifiers) == modifiers;
+	private boolean allModifiersAreSetOn(final Member item) {
+		return (item.getModifiers() & this.modifiers) == this.modifiers;
 	}
 
-	public void describeTo(Description description) {
-		description.appendText("is ").appendText(Modifier.toString(modifiers));
+	@Override
+	public void describeTo(final Description description) {
+		description.appendText("is ").appendText(Modifier.toString(this.modifiers));
 	}
 
 	@Factory
-	public static ModifierMatcher withModifiers(int modifiers) {
+	public static ModifierMatcher withModifiers(final int modifiers) {
 		return new ModifierMatcher(modifiers);
 	}
 
