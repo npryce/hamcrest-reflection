@@ -19,67 +19,66 @@ public class Reflectomatic {
 	}
 
 	public static FeatureType<Field> FIELDS = new FeatureType<Field>() {
-		public Field[] featuresOf(Class<?> fromClass) {
+		@Override
+		public Field[] featuresOf(final Class<?> fromClass) {
 			return fromClass.getDeclaredFields();
 		}
 	};
 
 	public static FeatureType<Method> METHODS = new FeatureType<Method>() {
-		public Method[] featuresOf(Class<?> fromClass) {
+		@Override
+		public Method[] featuresOf(final Class<?> fromClass) {
 			return fromClass.getDeclaredMethods();
 		}
 	};
 
 	public static FeatureType<Class<?>> CLASSES = new FeatureType<Class<?>>() {
-		public Class<?>[] featuresOf(Class<?> fromClass) {
+		@Override
+		public Class<?>[] featuresOf(final Class<?> fromClass) {
 			return fromClass.getDeclaredClasses();
 		}
 	};
 
-	private static <T> List<T> all(Class<?> type, FeatureType<T> featureType, Matcher<? super T> criteria) {
-		List<T> matchingFeatures = new ArrayList<T>();
+	private static <T> List<T> all(final Class<?> type, final FeatureType<T> featureType, final Matcher<? super T> criteria) {
+		final List<T> matchingFeatures = new ArrayList<T>();
 
-		for (Class<?> t = type; t != null; t = t.getSuperclass()) {
+		for (Class<?> t = type; t != null; t = t.getSuperclass())
 			collectMatchingFeatures(featureType.featuresOf(t), criteria, matchingFeatures);
-		}
 
 		return matchingFeatures;
 	}
 
-	private static <T> void collectMatchingFeatures(T[] features, Matcher<? super T> criteria, List<T> collection) {
-		for (T feature : features) {
-			if (criteria.matches(feature)) {
+	private static <T> void collectMatchingFeatures(final T[] features, final Matcher<? super T> criteria, final List<T> collection) {
+		for (final T feature : features)
+			if (criteria.matches(feature))
 				collection.add(feature);
-			}
-		}
 	}
 
-	public static List<Field> fieldsOf(Class<?> type, Matcher<? super Field> criteria) {
+	public static List<Field> fieldsOf(final Class<?> type, final Matcher<? super Field> criteria) {
 		return all(type, FIELDS, criteria);
 	}
 
-	public static List<Method> methodsOf(Class<?> type, Matcher<? super Method> criteria) {
+	public static List<Method> methodsOf(final Class<?> type, final Matcher<? super Method> criteria) {
 		return all(type, METHODS, criteria);
 	}
 
-	public static List<Constructor<?>> constructorsOf(Class<?> type, Matcher<? super Constructor<?>> criteria) {
-		List<Constructor<?>> matchingConstructors = new ArrayList<Constructor<?>>();
+	public static List<Constructor<?>> constructorsOf(final Class<?> type, final Matcher<? super Constructor<?>> criteria) {
+		final List<Constructor<?>> matchingConstructors = new ArrayList<Constructor<?>>();
 		collectMatchingFeatures(type.getDeclaredConstructors(), criteria, matchingConstructors);
 		return matchingConstructors;
 	}
 
-	public static List<Class<?>> classesIn(Class<?> type, Matcher<? super Class<?>> criteria) {
+	public static List<Class<?>> classesIn(final Class<?> type, final Matcher<? super Class<?>> criteria) {
 		return all(type, CLASSES, criteria);
 	}
 
-	public static void copyFieldsFromTo(Object from, Object to) {
-		for (Field field : fieldsOf(to.getClass(), not(withModifiers(FINAL | STATIC)))) {
+	public static void copyFieldsFromTo(final Object from, final Object to) {
+		for (final Field field : fieldsOf(to.getClass(), not(withModifiers(FINAL | STATIC))))
 			try {
 				field.setAccessible(true);
 				field.set(to, field.get(from));
-			} catch (IllegalAccessException e) {
+			} catch (final IllegalAccessException e) {
 				throw new IllegalStateException("cannot access field that has been made accessible", e);
 			}
-		}
 	}
 }
